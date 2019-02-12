@@ -8,11 +8,11 @@ import "../styles/App.css";
 class App extends Component {
   render() {
     return (
-      <Grid columns={2} stackable style={{ padding: "2%" }}>
+      <Grid columns={2} stackable>
         <Grid.Column computer={4} mobile={8} tablet={6}>
           <SearchForm />
         </Grid.Column>
-        <Grid.Column computer={12} mobile={8} tablet={10}>
+        <Grid.Column computer={11} mobile={8} tablet={10}>
           <SearchSummary />
           <SearchResults />
         </Grid.Column>
