@@ -13,7 +13,12 @@ const removeInvalidValues = obj => {
       o[key] = removeInvalidValues(o[key]);
     }
     // Recurse.
-    else if (o[key] === undefined || o[key] === "" || o[key] === 0) {
+    else if (
+      o[key] === undefined ||
+      o[key] === "" ||
+      o[key] === 0 ||
+      o[key][0] === ""
+    ) {
       delete o[key];
       // Delete undefined and null.
     } else {
@@ -114,7 +119,6 @@ export default (state = INIT_STATE, action) => {
           activeFilters: [...arrayMinusFoundActiveFilter]
         };
       } else {
-        console.log("insid2e");
         return {
           ...state,
           activeFilters: []

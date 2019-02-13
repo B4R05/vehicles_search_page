@@ -176,6 +176,9 @@ class SearchForm extends Component {
           <DropdownInput
             label="Car Model"
             name="vehicle_model_group"
+            disabled={
+              !this.props.criteria.hasOwnProperty("vehicle_make") && true
+            }
             stateOptions={[
               { key: "ANY", value: "Any", text: "Any" },
               ...this.populateDropdown("vehicle_model_group")

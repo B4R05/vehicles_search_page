@@ -13,14 +13,15 @@ class DropdownInput extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //is DropdownInput's name found in the criteria object ? show 'Any' to the user
-    //this is done so that when we delete an ActiveFilterItem, we want its corresponding DropdownInput value to
+    //is DropdownInput's name found in the criteria object ? show 'Any' or the first dropdown option's value
+    //to the user
+    //this is done so that when we delete an ActiveFilterItem, we want its related DropdownInput value to
     //change accordingly
     if (
       !this.props.criteria.hasOwnProperty(this.props.name) &&
       prevProps !== this.props
     ) {
-      this.setState({ value: "Any" });
+      this.setState({ value: this.props.stateOptions[0].value });
     }
   }
 
@@ -46,6 +47,7 @@ class DropdownInput extends Component {
         <Dropdown
           value={this.state.value}
           name={this.props.name}
+          disabled={this.props.disabled}
           onChange={(e, data) => {
             this.handleValueChange(e, data);
           }}
