@@ -5,8 +5,6 @@ import { Icon } from "semantic-ui-react";
 
 class ActiveFilterItem extends Component {
   handleIconClick = (objectKey, objectValue) => {
-    console.log(objectKey);
-    console.log(objectValue);
     this.props.editCriteria(objectKey, "");
     this.props.removeActiveFilter(objectValue);
   };
@@ -66,24 +64,11 @@ class ActiveFilterItem extends Component {
     if (objectValue instanceof Array) {
       return this.capitaliseFirstLetter(objectValue[0]);
     }
-
-    //
-    //
-    //ARRAY
-    //tags
   };
 
   render() {
     const objectValue = Object.values(this.props.data)[0];
     const objectKey = Object.keys(this.props.data)[0];
-    console.log(this.props.data);
-    console.log(objectKey);
-    console.log(objectValue);
-
-    //just capitalise objectValue for all dropdowns
-    //but detect slider min_price and max_price values and render 'Under' or 'Over'
-    //same for seats
-    //year type distance duration throw errrors
     return (
       <div className="active-filter">
         <span>{this.returnActiveFilterValue()}</span>
