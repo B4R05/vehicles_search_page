@@ -7,13 +7,24 @@ import Slider from "./Slider";
 import DropdownInput from "./DropdownInput";
 
 class SearchForm extends Component {
-  state = {
-    extraFiltersShown: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      extraSearchFiltersShown: false,
+      mobileWidth: false,
+      seeSearchFilters: false
+    };
+  }
+
   componentDidMount() {
     //make an initial request. (The criteria object is in the redux store)
     //Objective: populate the dropdowns values with the response.metadata
     this.props.fetchData();
+
+    //dynamically detect the window size
+    window.addEventListener("resize", this.detectMobileWidth);
+    //detect if user is in a mobile width at runtime
+    this.detectMobileWidth();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,6 +34,18 @@ class SearchForm extends Component {
       this.props.fetchData();
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.detectMobileWidth);
+  }
+
+  detectMobileWidth = () => {
+    if (window.innerWidth <= 767) {
+      this.setState({ mobileWidth: true });
+    } else {
+      this.setState({ mobileWidth: false });
+    }
+  };
 
   populateDropdown = type => {
     //takes metadata from backend and returns an array in the format compatible with the dropdown of semantic ui
@@ -54,16 +77,16 @@ class SearchForm extends Component {
     }
   };
 
-  showHideFilters = () => {
-    if (this.state.extraFiltersShown) {
-      this.setState({ extraFiltersShown: false });
+  showHideExtraSearchFilters = () => {
+    if (this.state.extraSearchFiltersShown) {
+      this.setState({ extraSearchFiltersShown: false });
     } else {
-      this.setState({ extraFiltersShown: true });
+      this.setState({ extraSearchFiltersShown: true });
     }
   };
 
-  renderExtraFilters = () => {
-    if (this.state.extraFiltersShown) {
+  renderExtraSearchFilters = () => {
+    if (this.state.extraSearchFiltersShown) {
       return (
         <Fragment>
           <DropdownInput
@@ -136,64 +159,107 @@ class SearchForm extends Component {
     }
   };
 
-  render() {
-    console.log("searchform props: ", this.props);
+  renderAllSearchFilters = () => {
+    if (!this.state.mobileWidth || this.state.seeSearchFilters) {
+      return (
+        <Fragment>
+          <Slider type="budget" minName="price_min" maxName="price_max" />
 
+          <DropdownInput
+            label="Car Make"
+            name="vehicle_make"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("vehicle_make")
+            ]}
+          />
+          <DropdownInput
+            label="Car Model"
+            name="vehicle_model_group"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("vehicle_model_group")
+            ]}
+          />
+          <DropdownInput
+            label="Gearbox"
+            name="transmission"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("transmission")
+            ]}
+          />
+
+          <Slider
+            type="seats"
+            minName="number_of_seats_min"
+            maxName="number_of_seats_max"
+          />
+
+          <DropdownInput
+            label="Fuel Type"
+            name="fuel"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("fuel")
+            ]}
+          />
+
+          <h5 onClick={this.showHideExtraSearchFilters}>
+            {this.state.extraSearchFiltersShown
+              ? "See less filters"
+              : "See more filters"}
+          </h5>
+
+          {this.renderExtraSearchFilters()}
+        </Fragment>
+      );
+    }
+  };
+
+  toggleSearchFiltersAtMobileWidths = () => {
+    if (this.state.seeSearchFilters) {
+      this.setState({ seeSearchFilters: false });
+    } else {
+      this.setState({ seeSearchFilters: true });
+    }
+  };
+
+  render() {
     return (
       <aside className="search__form">
-        <Slider type="budget" minName="price_min" maxName="price_max" />
-
-        <DropdownInput
-          label="Car Make"
-          name="vehicle_make"
-          stateOptions={[
-            { key: "ANY", value: "Any", text: "Any" },
-            ...this.populateDropdown("vehicle_make")
-          ]}
-        />
-        <DropdownInput
-          label="Car Model"
-          name="vehicle_model_group"
-          stateOptions={[
-            { key: "ANY", value: "Any", text: "Any" },
-            ...this.populateDropdown("vehicle_model_group")
-          ]}
-        />
-        <DropdownInput
-          label="Gearbox"
-          name="transmission"
-          stateOptions={[
-            { key: "ANY", value: "Any", text: "Any" },
-            ...this.populateDropdown("transmission")
-          ]}
-        />
-
-        <Slider
-          type="seats"
-          minName="number_of_seats_min"
-          maxName="number_of_seats_max"
-        />
-
-        <DropdownInput
-          label="Fuel Type"
-          name="fuel"
-          stateOptions={[
-            { key: "ANY", value: "Any", text: "Any" },
-            ...this.populateDropdown("fuel")
-          ]}
-        />
-
-        <h5 onClick={this.showHideFilters}>
-          {this.state.extraFiltersShown
-            ? "See less filters"
-            : "See more filters"}
-        </h5>
-
-        {this.renderExtraFilters()}
+        {this.state.mobileWidth && (
+          <h5 onClick={this.toggleSearchFiltersAtMobileWidths}>
+            {this.state.seeSearchFilters ? "Close" : "See search filters"}
+          </h5>
+        )}
+        {this.renderAllSearchFilters()}
       </aside>
     );
   }
 }
+
+// {this.state.mobileWidth && (
+//   <div
+//     style={{
+//       background: "rgb(80, 255, 125)",
+//       width: "50%",
+//       cursor: "pointer",
+//       textAlign: "center",
+//       position: "fixed",
+//       zIndex: 10,
+//       bottom: 0,
+//       padding: 10
+//     }}
+//     onClick={this.toggleSearchFiltersAtMobileWidths}
+//   >
+//     <h3>
+//       {this.state.seeSearchFilters
+//         ? "Update search and hide filters"
+//         : "Refine your search"}
+//     </h3>
+//   </div>
+// )}
 
 const mapStateToProps = state => {
   return {

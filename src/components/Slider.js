@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { editCriteria } from "../actions";
+import { editCriteria, populateActiveFilters } from "../actions";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
@@ -15,14 +15,18 @@ class Slider extends Component {
     }
 
     if (this.props.type === "seats") {
-      this.setState({ value: { min: 2, max: 4 } });
+      this.setState({ value: { min: 2, max: 9 } });
     }
   }
 
   handleChange = value => {
-    console.log(value);
-
     this.props.editCriteria(
+      null,
+      value,
+      this.props.minName,
+      this.props.maxName
+    );
+    this.props.populateActiveFilters(
       null,
       value,
       this.props.minName,
@@ -84,5 +88,5 @@ class Slider extends Component {
 
 export default connect(
   null,
-  { editCriteria }
+  { editCriteria, populateActiveFilters }
 )(Slider);

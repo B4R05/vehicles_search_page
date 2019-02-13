@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editCriteria } from "../actions";
+import { editCriteria, populateActiveFilters } from "../actions";
 import { Dropdown } from "semantic-ui-react";
 
 class DropdownInput extends Component {
@@ -9,19 +9,18 @@ class DropdownInput extends Component {
   };
 
   componentDidMount() {
-    if (this.props.stateOptions[0].value === "Any") {
-      this.setState({ value: this.props.stateOptions[0].value }, () => {
-        //put this in INIT_STATE ?
-        this.props.editCriteria(this.props.name, "");
-      });
-    } else {
-      this.setState({ value: this.props.stateOptions[0].value }, () => {
-        //put this in INIT_STATE ?
-        this.props.editCriteria(
-          this.props.name,
-          this.props.stateOptions[0].value
-        );
-      });
+    this.setState({ value: this.props.stateOptions[0].value });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //is DropdownInput's name found in the criteria object ? show 'Any' to the user
+    //this is done so that when we delete an ActiveFilterItem, we want its corresponding DropdownInput value to
+    //change accordingly
+    if (
+      !this.props.criteria.hasOwnProperty(this.props.name) &&
+      prevProps !== this.props
+    ) {
+      this.setState({ value: "Any" });
     }
   }
 
@@ -31,18 +30,14 @@ class DropdownInput extends Component {
     if (data.value === "Any")
       this.setState({ value: "Any" }, () => {
         this.props.editCriteria(data.name, "");
+        this.props.populateActiveFilters(data.name, "");
       });
     else
       this.setState({ value: data.value }, () => {
         this.props.editCriteria(data.name, data.value);
+        this.props.populateActiveFilters(data.name, data.value);
       });
   };
-
-  // displayThenPostValue = (stateValue, inputName, valueToSend) => {
-  //   this.setState({ value: stateValue }, () => {
-  //     this.props.editCriteria(inputName, valueToSend);
-  //   });
-  // };
 
   render() {
     return (
@@ -64,7 +59,13 @@ class DropdownInput extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    criteria: state.data.criteria
+  };
+};
+
 export default connect(
-  null,
-  { editCriteria }
+  mapStateToProps,
+  { editCriteria, populateActiveFilters }
 )(DropdownInput);

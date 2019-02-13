@@ -7,9 +7,10 @@ class SearchResults extends Component {
   render() {
     return (
       <section className="search__results">
-        {this.props.isVehiclesLoading ? "Loading..." : "Showing Search Results"}
         <Card.Group itemsPerRow={3}>
-          {this.props.cars.map(car => <SearchResultsCard info={car} />)}
+          {this.props.cars.map(car => (
+            <SearchResultsCard info={car} key={car.id} />
+          ))}
         </Card.Group>
       </section>
     );
@@ -19,7 +20,8 @@ class SearchResults extends Component {
 const mapStateToProps = state => {
   return {
     cars: state.data.response.data,
-    isVehiclesLoading: state.data.isVehiclesLoading
+    isVehiclesLoading: state.data.isVehiclesLoading,
+    activeFilters: state.data.activeFilters
   };
 };
 

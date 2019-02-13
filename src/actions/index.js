@@ -29,16 +29,19 @@ export const fetchData = type => (dispatch, getState) => {
 
 export const editCriteria = (name, value, minName, maxName) => {
   if (minName && maxName) {
+    //this block handles slider/range input values
     return {
       type: "EDIT_CRITERIA",
       payload: { [minName]: value.min, [maxName]: value.max }
     };
   } else if (name === "tags") {
+    //tags need an array as its value for the backend
     return {
       type: "EDIT_CRITERIA",
       payload: { [name]: [value] }
     };
   } else if (!name && !minName && !maxName) {
+    //handles sort dropdown values
     return {
       type: "EDIT_CRITERIA",
       payload: {
@@ -47,9 +50,55 @@ export const editCriteria = (name, value, minName, maxName) => {
       }
     };
   } else {
+    //handles all other dropdown values
     return {
       type: "EDIT_CRITERIA",
       payload: { [name]: value }
     };
   }
+};
+
+export const populateActiveFilters = (
+  name,
+  value,
+  minName,
+  maxName
+) => dispatch => {
+  if (minName && maxName) {
+    //this block handles slider/range input values
+    //they need to be separate each
+    dispatch({
+      type: "POPULATE_ACTIVE_FILTERS",
+      payload: { [minName]: value.min }
+    });
+    dispatch({
+      type: "POPULATE_ACTIVE_FILTERS",
+      payload: { [maxName]: value.max }
+    });
+  } else if (name === "tags") {
+    //tags need an array as its value for the backend
+    let payload = { [name]: [value] };
+
+    dispatch({
+      type: "POPULATE_ACTIVE_FILTERS",
+      payload
+    });
+  } else {
+    //handles all other dropdown values
+    let payload = { [name]: value };
+
+    dispatch({
+      type: "POPULATE_ACTIVE_FILTERS",
+      payload
+    });
+  }
+};
+
+export const removeActiveFilter = property => {
+  console.log(property);
+
+  return {
+    type: "REMOVE_ACTIVE_FILTER",
+    payload: property
+  };
 };
