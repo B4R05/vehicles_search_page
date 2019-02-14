@@ -42,7 +42,7 @@ class Slider extends Component {
     if (this.props.type === "budget") {
       return (
         <Fragment>
-          <label>Monthly Budget</label>
+          <label>{this.props.label}</label>
           <p>
             £{min} - £{max}
           </p>
@@ -60,7 +60,7 @@ class Slider extends Component {
     if (this.props.type === "seats") {
       return (
         <Fragment>
-          <label>Number Of Seats</label>
+          <label>{this.props.label}</label>
           <p>
             {min} - {max} Seats
           </p>

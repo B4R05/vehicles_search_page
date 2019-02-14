@@ -44,6 +44,9 @@ class ActiveFilterItem extends Component {
       if (objectKey === "number_of_months") {
         return `${objectValue} months`;
       }
+      if (objectKey === "number_of_weeks") {
+        return `${objectValue} weeks`;
+      }
       //days values
       if (objectKey === "subscription_start_days") {
         return `Next ${objectValue} days`;

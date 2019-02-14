@@ -1,7 +1,6 @@
 import api from "../api/api";
 
-//redux-thunk feeds the action creator with
-//dispatch AND getState as second argument.
+//redux-thunk feeds the action creator with dispatch AND getState as second argument.
 export const fetchData = type => (dispatch, getState) => {
   //for loading spinner later
   dispatch({
@@ -27,34 +26,42 @@ export const fetchData = type => (dispatch, getState) => {
     });
 };
 
-export const editCriteria = (name, value, minName, maxName) => {
-  if (minName && maxName) {
+export const editCriteria = (name, value, minName, maxName) => dispatch => {
+  if (name instanceof Object && !(name instanceof Array)) {
+    //if name is an object, edit criteria object with each property and value that name has
+    return Object.keys(name).forEach(key =>
+      dispatch({
+        type: "EDIT_CRITERIA",
+        payload: { [key]: name[key] }
+      })
+    );
+  } else if (minName && maxName) {
     //this block handles slider/range input values
-    return {
+    dispatch({
       type: "EDIT_CRITERIA",
       payload: { [minName]: value.min, [maxName]: value.max }
-    };
+    });
   } else if (name === "tags") {
     //tags need an array as its value for the backend
-    return {
+    dispatch({
       type: "EDIT_CRITERIA",
       payload: { [name]: [value] }
-    };
+    });
   } else if (!name && !minName && !maxName) {
     //handles sort dropdown values
-    return {
+    dispatch({
       type: "EDIT_CRITERIA",
       payload: {
         order_by: value.order_by,
         order_direction: value.order_direction
       }
-    };
+    });
   } else {
     //handles all other dropdown values
-    return {
+    dispatch({
       type: "EDIT_CRITERIA",
       payload: { [name]: value }
-    };
+    });
   }
 };
 

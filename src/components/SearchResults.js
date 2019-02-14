@@ -19,19 +19,26 @@ class SearchResults extends Component {
     return totalPagesToShow;
   };
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    //smoothly navigate to the top of the window each time user clicks on next page
     const options = { top: 0, left: 0, behavior: "smooth" };
     window.scrollTo(options);
+    //if user changed criteria object, then default to activePage: 1 as we do not want to send current
+    //activePage to backend if a new dropdown value is selected as we may not know how many cars there are
+    //that can now fit the new criteri. eg: if activePage is 10 but number of cars fetched is 2,
+    //app will show an empty results page
+    if (
+      prevProps !== this.props &&
+      this.props.activeFilters.length &&
+      this.props.cars.length === 0
+    ) {
+      this.setState({ activePage: 1 }, () =>
+        this.props.editCriteria("page", 1)
+      );
+    }
   }
 
-  // calculateNumberOfResultsToShow = () => {
-  //   return `Showing ${activePage}-${activePage * 10} results of ${
-  //     this.props.metadata.total_count
-  //   } results`;
-  // };
-
   render() {
-    this.calculateTotalPages();
     const { activePage } = this.state;
 
     return (
@@ -41,15 +48,16 @@ class SearchResults extends Component {
             <SearchResultsCard info={car} key={car.id} />
           ))}
         </Card.Group>
-
         <br />
         {this.props.cars.length ? (
-          <Pagination
-            activePage={activePage}
-            boundaryRange={0}
-            onPageChange={this.handlePaginationChange}
-            totalPages={this.calculateTotalPages()}
-          />
+          <div className="search__results-pagination--flex">
+            <Pagination
+              activePage={activePage}
+              boundaryRange={0}
+              onPageChange={(e, data) => this.handlePaginationChange(e, data)}
+              totalPages={this.calculateTotalPages()}
+            />
+          </div>
         ) : (
           <span />
         )}

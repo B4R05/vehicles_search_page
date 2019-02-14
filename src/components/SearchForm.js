@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { fetchData, editCriteria } from "../actions";
-// import {populateDropdown } from '../helpers/helpers'
+import SearchFormRadio from "./SearchFormRadio";
 import Slider from "./Slider";
 import DropdownInput from "./DropdownInput";
 
@@ -86,7 +86,10 @@ class SearchForm extends Component {
   };
 
   renderExtraSearchFilters = () => {
-    if (this.state.extraSearchFiltersShown) {
+    if (
+      this.state.extraSearchFiltersShown &&
+      this.props.criteria.vehicle_type === "Consumer"
+    ) {
       return (
         <Fragment>
           <DropdownInput
@@ -157,13 +160,67 @@ class SearchForm extends Component {
         </Fragment>
       );
     }
+
+    if (
+      this.state.extraSearchFiltersShown &&
+      this.props.criteria.vehicle_type === "PCO"
+    ) {
+      return (
+        <Fragment>
+          <DropdownInput
+            label="Location"
+            name="location"
+            stateOptions={[
+              { key: "London", value: "London, UK", text: "London, UK" }
+            ]}
+          />
+
+          <DropdownInput
+            label="Distance"
+            name="max_distance"
+            stateOptions={[
+              { key: "1000", value: 1000, text: "Nationwide" },
+              { key: "25", value: 25, text: "25 miles" },
+              { key: "50", value: 50, text: "50 miles" },
+              { key: "75", value: 75, text: "75 miles" }
+            ]}
+          />
+
+          <DropdownInput
+            label="Year"
+            name="year"
+            stateOptions={[
+              { key: "ANY", value: 0, text: "Any" },
+              ...this.populateDropdown("year")
+            ]}
+          />
+
+          <DropdownInput
+            label="Body Type"
+            name="body_type"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("body_information")
+            ]}
+          />
+        </Fragment>
+      );
+    }
   };
 
   renderAllSearchFilters = () => {
-    if (!this.state.mobileWidth || this.state.seeSearchFilters) {
+    if (
+      (!this.state.mobileWidth || this.state.seeSearchFilters) &&
+      this.props.criteria.vehicle_type === "Consumer"
+    ) {
       return (
         <Fragment>
-          <Slider type="budget" minName="price_min" maxName="price_max" />
+          <Slider
+            type="budget"
+            label="Monthly Budget"
+            minName="price_min"
+            maxName="price_max"
+          />
 
           <DropdownInput
             label="Car Make"
@@ -195,6 +252,7 @@ class SearchForm extends Component {
 
           <Slider
             type="seats"
+            label="Number Of Seats"
             minName="number_of_seats_min"
             maxName="number_of_seats_max"
           />
@@ -208,13 +266,101 @@ class SearchForm extends Component {
             ]}
           />
 
+          {this.renderExtraSearchFilters()}
+
           <h5 onClick={this.showHideExtraSearchFilters}>
             {this.state.extraSearchFiltersShown
               ? "See less filters"
               : "See more filters"}
           </h5>
+        </Fragment>
+      );
+    }
+
+    if (
+      (!this.state.mobileWidth || this.state.seeSearchFilters) &&
+      this.props.criteria.vehicle_type === "PCO"
+    ) {
+      return (
+        <Fragment>
+          <SearchFormRadio />
+
+          <Slider
+            type="budget"
+            label="Weekly Budget"
+            minName="price_min"
+            maxName="price_max"
+          />
+
+          <DropdownInput
+            label="City Jurisdiction"
+            name="city_jurisdiction"
+            stateOptions={[
+              { key: "Any", value: "Any", text: "Any" },
+              ...this.populateDropdown("city_jurisdiction")
+            ]}
+          />
+
+          <DropdownInput
+            label="Uber Type"
+            name="sub_type"
+            stateOptions={[
+              { key: "Any", value: "Any", text: "All" },
+              ...this.populateDropdown("sub_type")
+            ]}
+          />
+
+          <DropdownInput
+            label="Car Make"
+            name="vehicle_make"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("vehicle_make")
+            ]}
+          />
+          <DropdownInput
+            label="Car Model"
+            name="vehicle_model_group"
+            disabled={
+              !this.props.criteria.hasOwnProperty("vehicle_make") && true
+            }
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("vehicle_model_group")
+            ]}
+          />
+          <DropdownInput
+            label="Gearbox"
+            name="transmission"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("transmission")
+            ]}
+          />
+
+          <Slider
+            type="seats"
+            label="Number Of Seats"
+            minName="number_of_seats_min"
+            maxName="number_of_seats_max"
+          />
+
+          <DropdownInput
+            label="Fuel Type"
+            name="fuel"
+            stateOptions={[
+              { key: "ANY", value: "Any", text: "Any" },
+              ...this.populateDropdown("fuel")
+            ]}
+          />
 
           {this.renderExtraSearchFilters()}
+
+          <h5 onClick={this.showHideExtraSearchFilters}>
+            {this.state.extraSearchFiltersShown
+              ? "See less filters"
+              : "See more filters"}
+          </h5>
         </Fragment>
       );
     }

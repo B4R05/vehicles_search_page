@@ -13,12 +13,7 @@ const removeInvalidValues = obj => {
       o[key] = removeInvalidValues(o[key]);
     }
     // Recurse.
-    else if (
-      o[key] === undefined ||
-      o[key] === "" ||
-      o[key] === 0 ||
-      o[key][0] === ""
-    ) {
+    else if (o[key] === undefined || o[key] === "" || o[key] === 0) {
       delete o[key];
       // Delete undefined and null.
     } else {
@@ -36,7 +31,7 @@ const INIT_STATE = {
   criteria: removeInvalidValues({
     // this is the object we initially send to the server at runtime
     page: 1,
-    vehicle_type: "Consumer", //thats the minimum criteria object key that works
+    vehicle_type: "PCO", //thats the minimum criteria object key that works
     vehicle_make: "",
     vehicle_model_group: "",
     transmission: "",
