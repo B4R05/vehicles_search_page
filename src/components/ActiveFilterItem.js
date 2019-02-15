@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeActiveFilter, editCriteria } from "../actions";
 import { Icon } from "semantic-ui-react";
+import { editCriteria } from "../actions";
+import "../styles/ActiveFilterItem.css";
 
 class ActiveFilterItem extends Component {
+  //remove the linked active filter from activeFilters
+  //and remove linked property from criteria object to send to backend
   handleIconClick = (objectKey, objectValue) => {
     this.props.editCriteria(objectKey, "");
-    this.props.removeActiveFilter(objectValue);
+    // this.props.removeActiveFilter(objectValue);
   };
 
   capitaliseFirstLetter = objectValue => {
@@ -16,6 +19,7 @@ class ActiveFilterItem extends Component {
     );
   };
 
+  //returns the active filter's value in a well-presented rather than in a raw format
   returnActiveFilterValue = () => {
     const objectValue = Object.values(this.props.data)[0];
     const objectKey = Object.keys(this.props.data)[0];
@@ -72,6 +76,7 @@ class ActiveFilterItem extends Component {
   render() {
     const objectValue = Object.values(this.props.data)[0];
     const objectKey = Object.keys(this.props.data)[0];
+    console.log(objectKey, objectValue);
     return (
       <div className="active-filter">
         <span>{this.returnActiveFilterValue()}</span>
@@ -123,5 +128,5 @@ class ActiveFilterItem extends Component {
 
 export default connect(
   null,
-  { removeActiveFilter, editCriteria }
+  { editCriteria }
 )(ActiveFilterItem);

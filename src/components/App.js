@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, Image, Segment, Button } from "semantic-ui-react";
-import { editCriteria, removeActiveFilter } from "../actions";
+import { editCriteria, overwriteCriteria } from "../actions";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
 import SearchSummary from "./SearchSummary";
@@ -9,23 +9,24 @@ import "../styles/App.css";
 
 class App extends Component {
   state = {
-    hireType: "Go To Consumer Mode"
+    hireType: "Go To PCO Mode"
   };
 
   handleClick = () => {
     //fetch new kind of data (PCO or Consumer related) with new vehicle_type value
-    //clear all activefilters from the previous hireType mode
+    //clear all activefilters from the previous hireType mode ('PCO' mode/hireType)
     if (this.state.hireType === "Go To Consumer Mode") {
       this.setState({ hireType: "Go To PCO Mode" }, () => {
         let obj = {
+          page: 1,
           vehicle_type: "Consumer",
           sub_type: "",
           city_jurisdiction: "",
           number_of_weeks: 52,
+          subscription_start_days: 30,
           rolling: false
         };
-        this.props.editCriteria(obj);
-        this.props.removeActiveFilter("");
+        this.props.overwriteCriteria(obj);
       });
     }
 
@@ -35,13 +36,13 @@ class App extends Component {
         //we want to clear any PCO related fields and send backend only Consumer valid fields
 
         let obj = {
+          page: 1,
           vehicle_type: "PCO",
           subscription_start_days: 21,
           number_of_weeks: 52,
           rolling: false
         };
-        this.props.editCriteria(obj);
-        this.props.removeActiveFilter("");
+        this.props.overwriteCriteria(obj);
       });
     }
   };
@@ -70,5 +71,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { editCriteria, removeActiveFilter }
+  { editCriteria, overwriteCriteria }
 )(App);

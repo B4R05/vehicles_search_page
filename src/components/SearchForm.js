@@ -5,6 +5,7 @@ import { fetchData, editCriteria } from "../actions";
 import SearchFormRadio from "./SearchFormRadio";
 import Slider from "./Slider";
 import DropdownInput from "./DropdownInput";
+import "../styles/SearchForm.css";
 
 class SearchForm extends Component {
   constructor(props) {
@@ -85,6 +86,8 @@ class SearchForm extends Component {
     }
   };
 
+  //extra search filters shown for both PCO and Consumer modes/hireTypes
+  //depening which mode is currently active
   renderExtraSearchFilters = () => {
     if (
       this.state.extraSearchFiltersShown &&
@@ -208,6 +211,8 @@ class SearchForm extends Component {
     }
   };
 
+  //search filters shown for both PCO and Consumer modes/hireTypes
+  //depending on which mode is currently active
   renderAllSearchFilters = () => {
     if (
       (!this.state.mobileWidth || this.state.seeSearchFilters) &&
@@ -366,6 +371,7 @@ class SearchForm extends Component {
     }
   };
 
+  //at mobile widths, we can choose to hide or show search filters
   toggleSearchFiltersAtMobileWidths = () => {
     if (this.state.seeSearchFilters) {
       this.setState({ seeSearchFilters: false });
@@ -376,7 +382,7 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <aside className="search__form">
+      <aside className="search-form">
         {this.state.mobileWidth && (
           <h5 onClick={this.toggleSearchFiltersAtMobileWidths}>
             {this.state.seeSearchFilters ? "Close" : "See search filters"}
@@ -387,28 +393,6 @@ class SearchForm extends Component {
     );
   }
 }
-
-// {this.state.mobileWidth && (
-//   <div
-//     style={{
-//       background: "rgb(80, 255, 125)",
-//       width: "50%",
-//       cursor: "pointer",
-//       textAlign: "center",
-//       position: "fixed",
-//       zIndex: 10,
-//       bottom: 0,
-//       padding: 10
-//     }}
-//     onClick={this.toggleSearchFiltersAtMobileWidths}
-//   >
-//     <h3>
-//       {this.state.seeSearchFilters
-//         ? "Update search and hide filters"
-//         : "Refine your search"}
-//     </h3>
-//   </div>
-// )}
 
 const mapStateToProps = state => {
   return {

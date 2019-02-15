@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editCriteria, populateActiveFilters } from "../actions";
 import { Dropdown } from "semantic-ui-react";
+import { editCriteria } from "../actions";
+import "../styles/DropdownInput.css";
 
 class DropdownInput extends Component {
   state = {
@@ -9,6 +10,7 @@ class DropdownInput extends Component {
   };
 
   componentDidMount() {
+    //the user should see the first option's value. in most cases 'Any'.
     this.setState({ value: this.props.stateOptions[0].value });
   }
 
@@ -31,12 +33,12 @@ class DropdownInput extends Component {
     if (data.value === "Any")
       this.setState({ value: "Any" }, () => {
         this.props.editCriteria(data.name, "");
-        this.props.populateActiveFilters(data.name, "");
+        // this.props.populateActiveFilters(data.name, "");
       });
     else
       this.setState({ value: data.value }, () => {
         this.props.editCriteria(data.name, data.value);
-        this.props.populateActiveFilters(data.name, data.value);
+        // this.props.populateActiveFilters(data.name, data.value);
       });
   };
 
@@ -69,5 +71,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { editCriteria, populateActiveFilters }
+  { editCriteria }
 )(DropdownInput);

@@ -1,0 +1,33 @@
+.input-range__label--max,
+.input-range__label-container,
+.input-range__label--min {
+  display: none;
+}
+
+.input-range__track {
+  background: #1b1b1b;
+}
+
+.input-range__slider {
+  background-color: rgb(0, 30, 255);
+  border-color: rgb(0, 30, 255);
+}
+
+.slider {
+  margin-bottom: 2rem !important;
+}
+
+.slider p {
+  font-weight: lighter;
+}
+
+.input-range__slider-container {
+  transition: none;
+}
+
+.input-range {
+  height: 1rem;
+  position: relative;
+  width: auto;
+  margin-left: 0.5rem;
+}

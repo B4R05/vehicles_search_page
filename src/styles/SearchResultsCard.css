@@ -1,0 +1,126 @@
+/* CARD SECTION */
+
+h1,
+h2 {
+  margin: 0 !important;
+  font-family: "Muli", sans-serif !important;
+}
+h1 {
+  font-size: 2.5rem !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+img {
+  cursor: not-allowed;
+  transition: 0.2s;
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+hr {
+  color: black;
+  width: 100%;
+}
+
+.card__top__ribbon {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 13px;
+  color: white;
+  background-color: rgb(0, 30, 255);
+  padding: 0.4rem;
+  height: 30px;
+}
+.card__top--flex {
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.card__top--flex small {
+  font-weight: bolder;
+  color: black;
+}
+
+.card__bottom--flex {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+}
+.card__bottom--flex small {
+  font-weight: lighter;
+  font-size: 0.9rem;
+  color: blue;
+}
+
+.card__PCO-icon > img {
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border-style: none !important;
+  vertical-align: middle !important;
+}
+.card__PCO-icon small,
+.card__PCO-icon img {
+  color: gray;
+  margin-right: 0.3rem;
+  margin-left: 0.3rem;
+}
+
+.ui.card,
+.ui.cards > .card {
+  transition: 0.2s;
+  padding: 1rem;
+  box-shadow: none;
+  border-radius: 0px;
+  background-color: rgb(245, 245, 245);
+  margin-bottom: -0.4rem;
+  margin-left: 0.4rem !important;
+}
+.ui.cards > .card > .content {
+  padding: 0 !important;
+}
+.ui.card > .content,
+.ui.cards > .card > .content {
+  border-top: 0;
+}
+
+.ui.cards > .card .meta {
+  color: white;
+}
+
+.ui.three.cards {
+  margin: 0 auto;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.ui.three.cards > .card {
+  width: 32.42%;
+  margin-right: 0.1rem;
+}
+
+@media only screen and (max-width: 1180px) {
+  .ui.three.cards > .card {
+    margin-right: 0rem;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .ui.three.cards > .card {
+    width: calc(51% - 2em) !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .ui.three.cards > .card {
+    width: calc(100%) !important;
+  }
+}

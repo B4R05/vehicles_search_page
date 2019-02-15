@@ -9,15 +9,14 @@ class SearchFormRadio extends Component {
     value: "commit"
   };
 
+  //sets the state and edits criteria object with values that backend can take accordingly
   handleChange = (e, { value }) => {
     this.setState({ value }, () => {
       if (this.state.value === "commit") {
         let obj = { rolling: false, number_of_weeks: 52 };
-
         this.props.editCriteria(obj);
       } else {
         let obj = { rolling: true, number_of_weeks: 1 };
-
         this.props.editCriteria(obj);
       }
     });
@@ -26,7 +25,7 @@ class SearchFormRadio extends Component {
   renderInputsOrTextBlock = () => {
     if (this.state.value === "rolling") {
       return (
-        <div className="searchform-radio--block">
+        <div className="search-form__radio-text">
           <Header as="h5">Your subscription will be renewed weekly</Header>
           <small>
             You are not benefiting from long term subscription discounts! Select{" "}

@@ -1,0 +1,17 @@
+/* ACTIVE FILTER */
+.search-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.search-summary__active-filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 767px) {
+  .search-summary {
+    display: block;
+  }
+}

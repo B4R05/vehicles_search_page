@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editCriteria } from "../actions";
 import { Card, Pagination, Segment } from "semantic-ui-react";
+import { editCriteria } from "../actions";
 import SearchResultsCard from "./SearchResultsCard";
+import "../styles/SearchResults.css";
 
 class SearchResults extends Component {
   state = { activePage: 1 };
 
+  //set state then edit criteria object with the activePage value to request
+  //a new set of data linked to that activePage value
   handlePaginationChange = (e, { activePage }) =>
     this.setState({ activePage }, () =>
       this.props.editCriteria("page", activePage)
@@ -29,7 +32,7 @@ class SearchResults extends Component {
     //app will show an empty results page
     if (
       prevProps !== this.props &&
-      this.props.activeFilters.length &&
+      Object.keys(this.props.criteria).length &&
       this.props.cars.length === 0
     ) {
       this.setState({ activePage: 1 }, () =>
@@ -42,7 +45,7 @@ class SearchResults extends Component {
     const { activePage } = this.state;
 
     return (
-      <section className="search__results">
+      <section className="search-results">
         <Card.Group itemsPerRow={3}>
           {this.props.cars.map(car => (
             <SearchResultsCard info={car} key={car.id} />
@@ -50,7 +53,7 @@ class SearchResults extends Component {
         </Card.Group>
         <br />
         {this.props.cars.length ? (
-          <div className="search__results-pagination--flex">
+          <div className="search-results__pagination--flex">
             <Pagination
               activePage={activePage}
               boundaryRange={0}
@@ -69,9 +72,9 @@ class SearchResults extends Component {
 const mapStateToProps = state => {
   return {
     cars: state.data.response.data,
+    criteria: state.data.criteria,
     metadata: state.data.response.metadata,
-    isVehiclesLoading: state.data.isVehiclesLoading,
-    activeFilters: state.data.activeFilters
+    isVehiclesLoading: state.data.isVehiclesLoading
   };
 };
 

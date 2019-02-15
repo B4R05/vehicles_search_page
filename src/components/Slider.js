@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { editCriteria, populateActiveFilters } from "../actions";
+import { editCriteria } from "../actions";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import "../styles/Slider.css";
 
 class Slider extends Component {
   state = {
@@ -19,6 +20,8 @@ class Slider extends Component {
     }
   }
 
+  //edit criteria object to send to backend
+  //show the user the values selected as ActiveFilterItems
   handleChange = value => {
     this.props.editCriteria(
       null,
@@ -26,12 +29,12 @@ class Slider extends Component {
       this.props.minName,
       this.props.maxName
     );
-    this.props.populateActiveFilters(
-      null,
-      value,
-      this.props.minName,
-      this.props.maxName
-    );
+    // this.props.populateActiveFilters(
+    //   null,
+    //   value,
+    //   this.props.minName,
+    //   this.props.maxName
+    // );
   };
 
   renderCorrectSliderType = () => {
@@ -88,5 +91,5 @@ class Slider extends Component {
 
 export default connect(
   null,
-  { editCriteria, populateActiveFilters }
+  { editCriteria }
 )(Slider);

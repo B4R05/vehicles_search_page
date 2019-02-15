@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { fetchData, editCriteria, removeActiveFilter } from "../actions";
 import { connect } from "react-redux";
 import { Dropdown, Header } from "semantic-ui-react";
+import { fetchData, editCriteria } from "../actions";
 import DropdownInput from "./DropdownInput";
 import ActiveFilterItem from "./ActiveFilterItem";
+import "../styles/SearchSummary.css";
 
 class SearchSummary extends Component {
   state = {
@@ -32,6 +33,7 @@ class SearchSummary extends Component {
     ]
   };
 
+  //edit criteria object with state value to send to backend
   handleValueChange = (e, data) => {
     this.setState({ value: data.value }, () => {
       this.props.editCriteria(null, data.value, null, null);
@@ -45,15 +47,31 @@ class SearchSummary extends Component {
   };
 
   renderActiveFilters = () => {
-    return this.props.activeFilters.map((filter, i) => (
-      <ActiveFilterItem data={filter} key={i} />
-    ));
+    return Object.keys(this.props.criteria).map(key => {
+      if (
+        key !== "vehicle_type" &&
+        key !== "page" &&
+        key !== "rolling" &&
+        key !== "order_by" &&
+        key !== "order_direction"
+        // && (Object.keys(this.props.criteria).length > 2 &&
+        //   this.props.criteria.hasOwnProperty("vehicle_type") &&
+        //   this.props.criteria.hasOwnProperty("subscription_start_days"))
+      ) {
+        return (
+          <ActiveFilterItem
+            data={{ [key]: this.props.criteria[key] }}
+            key={key}
+          />
+        );
+      }
+    });
   };
 
   render() {
     return (
       <Fragment>
-        <section className="search__summary">
+        <section className="search-summary">
           <Header as="h1">{this.showNumberOfCarsAvailable()}</Header>
           <Dropdown
             search
@@ -66,27 +84,23 @@ class SearchSummary extends Component {
             options={this.state.options}
           />
         </section>{" "}
-        <div className="active-filter-container">
+        <div className="search-summary__active-filters">
           {this.renderActiveFilters()}
         </div>
       </Fragment>
     );
   }
 }
-// <h5 onClick={() => this.props.removeActiveFilter("")}>
-//   {this.props.activeFilters.length && "Clear filters"}
-// </h5>
 
 const mapStateToProps = state => {
   return {
     metadata: state.data.response.metadata,
     isVehiclesLoading: state.data.isVehiclesLoading,
-    criteria: state.data.criteria,
-    activeFilters: state.data.activeFilters
+    criteria: state.data.criteria
   };
 };
 
 export default connect(
   mapStateToProps,
-  { editCriteria, removeActiveFilter, fetchData }
+  { editCriteria, fetchData }
 )(SearchSummary);

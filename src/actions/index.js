@@ -28,7 +28,7 @@ export const fetchData = type => (dispatch, getState) => {
 
 export const editCriteria = (name, value, minName, maxName) => dispatch => {
   if (name instanceof Object && !(name instanceof Array)) {
-    //if name is an object, edit criteria object with each property and value that name has
+    //if name is a sure object, edit criteria object with each property and value that name has
     return Object.keys(name).forEach(key =>
       dispatch({
         type: "EDIT_CRITERIA",
@@ -65,47 +65,9 @@ export const editCriteria = (name, value, minName, maxName) => dispatch => {
   }
 };
 
-export const populateActiveFilters = (
-  name,
-  value,
-  minName,
-  maxName
-) => dispatch => {
-  if (minName && maxName) {
-    //this block handles slider/range input values
-    //they need to be separate each
-    dispatch({
-      type: "POPULATE_ACTIVE_FILTERS",
-      payload: { [minName]: value.min }
-    });
-    dispatch({
-      type: "POPULATE_ACTIVE_FILTERS",
-      payload: { [maxName]: value.max }
-    });
-  } else if (name === "tags") {
-    //tags need an array as its value for the backend
-    let payload = { [name]: [value] };
-
-    dispatch({
-      type: "POPULATE_ACTIVE_FILTERS",
-      payload
-    });
-  } else {
-    //handles all other dropdown values
-    let payload = { [name]: value };
-
-    dispatch({
-      type: "POPULATE_ACTIVE_FILTERS",
-      payload
-    });
-  }
-};
-
-export const removeActiveFilter = property => {
-  console.log(property);
-
+export const overwriteCriteria = obj => {
   return {
-    type: "REMOVE_ACTIVE_FILTER",
-    payload: property
+    type: "OVERWRITE_CRITERIA",
+    payload: obj
   };
 };

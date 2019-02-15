@@ -1,0 +1,56 @@
+/* search form */
+.search-form {
+  width: 100%;
+  /* height: 100vh; */
+}
+.search-form h5 {
+  color: blue;
+  cursor: pointer;
+}
+
+.search-form__radio-text {
+  background: rgb(249, 246, 237);
+  padding: 2rem;
+}
+
+form.ui.form {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.ui.segment {
+  background: rgb(245, 245, 245);
+  border: none;
+  border-radius: 0 !important;
+}
+
+.ui.radio.checkbox label {
+  font-size: 0.9rem !important;
+}
+
+.ui.checkbox input:checked ~ .box:before,
+.ui.checkbox input:checked ~ label:before {
+  border-color: blue !important;
+}
+.ui.radio.checkbox input:checked ~ .box:after,
+.ui.radio.checkbox input:checked ~ label:after {
+  background-color: blue !important;
+}
+.ui.radio.checkbox input:checked ~ .box:before,
+.ui.radio.checkbox input:checked ~ label:before {
+  background-color: blue !important;
+}
+.ui.radio.checkbox input:focus ~ .box:before,
+.ui.radio.checkbox input:focus ~ label:before {
+  background-color: blue;
+}
+.ui.radio.checkbox .box:before,
+.ui.radio.checkbox label:before {
+  width: 17px;
+  height: 17px;
+}
+
+.ui.checkbox .box:after,
+.ui.checkbox label:after {
+  transition: none;
+}

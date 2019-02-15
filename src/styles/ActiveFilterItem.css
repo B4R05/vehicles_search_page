@@ -1,0 +1,18 @@
+.active-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+  height: 40px;
+  width: fit-content;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  font-weight: lighter;
+}
+
+.active-filter i.icon {
+  margin-left: 0.5rem;
+  font-size: 1.2em;
+  cursor: pointer;
+}
