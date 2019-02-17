@@ -45,7 +45,7 @@ The PCO mode lists cars for private group use, with a rolling subscription optio
 
 # Demo
 
-https://bbc-news-cf804.firebaseapp.com
+https://drover-7b33b.firebaseapp.com
 
 # Installation
 
