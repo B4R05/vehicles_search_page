@@ -1,68 +1,96 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Introduction
 
-## Available Scripts
+> Search cars for rent with the Drover API!
 
-In the project directory, you can run:
+![](https://img.shields.io/github/last-commit/GavBaros/search_filter.svg?style=flat)
+![](https://img.shields.io/github/repo-size/GavBaros/search_filter.svg?style=flat)
+![](https://img.shields.io/david/GavBaros/search_filter.svg?style=flat)
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. [About](#about)
+1. [Previews](#previews)
+1. [Demo](#demo)
+1. [Installation](#installation)
+1. [Tests](#tests)
+1. [Styling](#styling)
+1. [Improvements](#improvements)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+# About
 
-### `npm test`
+This app is a search page prototype allowing a user to search for rental cars based on dynamic criteria sent to the Drover API.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Features:
 
-### `npm run build`
+- Change any dropdown or slider search filters and see all car results fetched matching those filters
+- Clearable active filters show up as a user interacts with any dropdown / sliders to indicate their current selection
+- Pagination
+- PCO and Consumer hire types: A user can search for both private and consumer cars
+- Fully responsive layout: fits mobile, tablet and desktop widths smoothly
+- Expandable search filters minimise as soon as a user reaches mobile widths
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Previews
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Consumer Mode Preview:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Consumer mode only lists cars for regular individual use.
 
-### `npm run eject`
+![](consumer.gif)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### PCO Mode Preview:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The PCO mode lists cars for private group use, with a rolling subscription option, Uber Types and City Jurisdiction options not available in Consumer mode.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![](pco.gif)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Demo
 
-## Learn More
+https://bbc-news-cf804.firebaseapp.com
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+For Mac OS, Linux and Windows, from your terminal:
 
-### Code Splitting
+```sh
+git clone https://github.com/GavBaros/search_filter.git
+cd search_filter
+npm install
+npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+# Tests
 
-### Analyzing the Bundle Size
+Only simple unit tests were done as per specifications. In-depth unit and integration tests could have been done given more time.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+From your terminal:
 
-### Making a Progressive Web App
+```sh
+npm run test
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+# Styling
 
-### Advanced Configuration
+[2]: https://github.com/Semantic-Org/Semantic-UI-React
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+The [Semantic UI React][2] component library has been used for a highly scalable, ready-to-use and consistent styling across the app. Extra styling was added to make the app resemble as close as possible to the original search page.
 
-### Deployment
+#### Responsive Layout
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+The app is fully responsive across all devices and the breakpoints easily configurable by setting them on the `Grid` component in `App.js`.
 
-### `npm run build` fails to minify
+![](responsive.gif)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### Additional UX implementations:
+
+- A loading indicator and `searching for cars` text are displayed while fetching results
+- `Car Model` is disabled unless a `Car Make` is actively selected
+- Used `react-graceful-image` to lazy load images on demand
+- Smooth scroll to the top of the page each time new cars are fetched
+- For the PCO mode, a placeholder stock photo is provided as the url for all cars as the images provided for PCO types look generic compared to those of the Consumer stock photos
+
+# Improvements
+
+- Redux form could have been used to facilitate certain features
+- The logic which prompt clearable active filters to show up could always be improved
+- `react-places-autocomplete` could have been used as an autocomplete feature for the `location` field
+- Testing the redux store, reducers, action creators and connected components could have been done

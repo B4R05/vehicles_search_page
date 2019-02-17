@@ -4,6 +4,10 @@ section .ui.segment {
   box-shadow: none !important;
 }
 
+section .ui.loading.segment {
+  color: inherit !important;
+}
+
 .search-results {
   width: 100%;
 }
