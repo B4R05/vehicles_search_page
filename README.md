@@ -20,7 +20,7 @@
 
 This app is a search page prototype allowing a user to search for rental cars based on dynamic criteria sent to the Drover API.
 
-### Features:
+### Features
 
 - Change any dropdown or slider search filters and see all car results fetched matching those filters
 - Clearable active filters show up as a user interacts with any dropdown / sliders to indicate their current selection
