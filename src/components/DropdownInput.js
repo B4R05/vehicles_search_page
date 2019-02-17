@@ -66,7 +66,7 @@ DropdownInput.propTypes = {
   criteria: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   stateOptions: PropTypes.array.isRequired,
   editCriteria: PropTypes.func.isRequired
 };

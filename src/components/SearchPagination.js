@@ -30,7 +30,6 @@ class SearchPagination extends Component {
         {this.props.cars.length ? (
           <div className="search-results__pagination--flex">
             <Pagination
-              defaultActivePage={1}
               activePage={this.props.metadata.page}
               boundaryRange={0}
               onPageChange={(e, data) => this.handlePaginationChange(e, data)}

@@ -57,6 +57,7 @@ class SearchSummary extends Component {
 
     let relevantCriteriaKeys = Object.keys(this.props.criteria);
 
+    // eslint-disable-next-line
     return relevantCriteriaKeys.map(key => {
       if (
         key !== "vehicle_type" &&

@@ -75,6 +75,7 @@ const sanitizeCriteria = obj => {
       delete o[key];
       // Delete undefined and null.
     } else {
+      // eslint-disable-next-line
       o[key] = o[key]; // Copy value.
     }
   });
