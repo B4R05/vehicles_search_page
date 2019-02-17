@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-graceful-image": "^1.2.9",

@@ -65,9 +65,6 @@ const SearchResultsCard = props => {
   );
 };
 
-// src={props.info.stock_image.image_url || props.info.images[0].image_url}
-// alt={props.info.stock_image.image_url || props.info.images[0].image_url}
-
 const mapStateToProps = state => {
   return {
     hireType: state.data.criteria.vehicle_type

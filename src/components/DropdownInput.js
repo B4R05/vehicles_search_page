@@ -33,12 +33,10 @@ class DropdownInput extends Component {
     if (data.value === "Any")
       this.setState({ value: "Any" }, () => {
         this.props.editCriteria(data.name, "");
-        // this.props.populateActiveFilters(data.name, "");
       });
     else
       this.setState({ value: data.value }, () => {
         this.props.editCriteria(data.name, data.value);
-        // this.props.populateActiveFilters(data.name, data.value);
       });
   };
 

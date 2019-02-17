@@ -29,12 +29,12 @@ export const fetchData = type => (dispatch, getState) => {
 export const editCriteria = (name, value, minName, maxName) => dispatch => {
   if (name instanceof Object && !(name instanceof Array)) {
     //if name is a sure object, edit criteria object with each property and value that name has
-    return Object.keys(name).forEach(key =>
+    return Object.keys(name).forEach(key => {
       dispatch({
         type: "EDIT_CRITERIA",
         payload: { [key]: name[key] }
-      })
-    );
+      });
+    });
   } else if (minName && maxName) {
     //this block handles slider/range input values
     dispatch({
@@ -45,7 +45,7 @@ export const editCriteria = (name, value, minName, maxName) => dispatch => {
     //tags need an array as its value for the backend
     dispatch({
       type: "EDIT_CRITERIA",
-      payload: { [name]: [value] }
+      payload: { [name]: value === "" ? "" : [value] }
     });
   } else if (!name && !minName && !maxName) {
     //handles sort dropdown values
@@ -65,9 +65,9 @@ export const editCriteria = (name, value, minName, maxName) => dispatch => {
   }
 };
 
-export const overwriteCriteria = obj => {
+export const resetCriteria = obj => {
   return {
-    type: "OVERWRITE_CRITERIA",
+    type: "RESET_CRITERIA",
     payload: obj
   };
 };

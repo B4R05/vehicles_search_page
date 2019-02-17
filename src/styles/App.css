@@ -39,11 +39,15 @@ p {
 
 /*  Button */
 .ui.primary.button,
-.ui.primary.button:hover,
 .ui.primary.button:focus {
   font-family: "Muli", sans-serif !important;
   background-color: rgb(80, 255, 125);
   color: black;
   border-radius: 0px;
   padding: 15px 15px 15px 15px;
+}
+
+.ui.primary.button:hover {
+  color: black;
+  background-color: rgb(-80, 200, 25, 1);
 }

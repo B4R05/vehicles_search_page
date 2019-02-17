@@ -9,7 +9,6 @@ class ActiveFilterItem extends Component {
   //and remove linked property from criteria object to send to backend
   handleIconClick = (objectKey, objectValue) => {
     this.props.editCriteria(objectKey, "");
-    // this.props.removeActiveFilter(objectValue);
   };
 
   capitaliseFirstLetter = objectValue => {
@@ -67,7 +66,7 @@ class ActiveFilterItem extends Component {
         return `${objectValue}`;
       }
     }
-
+    //if tags array detected
     if (objectValue instanceof Array) {
       return this.capitaliseFirstLetter(objectValue[0]);
     }
@@ -76,7 +75,7 @@ class ActiveFilterItem extends Component {
   render() {
     const objectValue = Object.values(this.props.data)[0];
     const objectKey = Object.keys(this.props.data)[0];
-    console.log(objectKey, objectValue);
+
     return (
       <div className="active-filter">
         <span>{this.returnActiveFilterValue()}</span>

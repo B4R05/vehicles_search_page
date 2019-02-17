@@ -21,20 +21,13 @@ class Slider extends Component {
   }
 
   //edit criteria object to send to backend
-  //show the user the values selected as ActiveFilterItems
-  handleChange = value => {
+  handleChangeComplete = value => {
     this.props.editCriteria(
       null,
       value,
       this.props.minName,
       this.props.maxName
     );
-    // this.props.populateActiveFilters(
-    //   null,
-    //   value,
-    //   this.props.minName,
-    //   this.props.maxName
-    // );
   };
 
   renderCorrectSliderType = () => {
@@ -54,7 +47,7 @@ class Slider extends Component {
             minValue={100}
             value={this.state.value}
             onChange={value => this.setState({ value })}
-            onChangeComplete={value => this.handleChange(value)}
+            onChangeComplete={value => this.handleChangeComplete(value)}
           />
         </Fragment>
       );
@@ -73,7 +66,7 @@ class Slider extends Component {
             step={1}
             value={this.state.value}
             onChange={value => this.setState({ value })}
-            onChangeComplete={value => this.handleChange(value)}
+            onChangeComplete={value => this.handleChangeComplete(value)}
           />
         </Fragment>
       );

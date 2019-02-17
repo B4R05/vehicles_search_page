@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Dropdown, Header } from "semantic-ui-react";
@@ -5,6 +6,8 @@ import { fetchData, editCriteria } from "../actions";
 import DropdownInput from "./DropdownInput";
 import ActiveFilterItem from "./ActiveFilterItem";
 import "../styles/SearchSummary.css";
+
+import { defaultCriteria } from "../config/minimumCriteria";
 
 class SearchSummary extends Component {
   state = {
@@ -47,16 +50,23 @@ class SearchSummary extends Component {
   };
 
   renderActiveFilters = () => {
-    return Object.keys(this.props.criteria).map(key => {
+    // Check if user has interacted with search form
+    if (this.props.isCriteriaPristine) {
+      // if form is still pristine, don't show active filters
+      return;
+    }
+
+    // User has interacted with search form, so show all filters being applied.
+
+    let relevantCriteriaKeys = Object.keys(this.props.criteria);
+
+    return relevantCriteriaKeys.map(key => {
       if (
         key !== "vehicle_type" &&
         key !== "page" &&
         key !== "rolling" &&
         key !== "order_by" &&
         key !== "order_direction"
-        // && (Object.keys(this.props.criteria).length > 2 &&
-        //   this.props.criteria.hasOwnProperty("vehicle_type") &&
-        //   this.props.criteria.hasOwnProperty("subscription_start_days"))
       ) {
         return (
           <ActiveFilterItem
@@ -96,7 +106,8 @@ const mapStateToProps = state => {
   return {
     metadata: state.data.response.metadata,
     isVehiclesLoading: state.data.isVehiclesLoading,
-    criteria: state.data.criteria
+    criteria: state.data.criteria,
+    isCriteriaPristine: state.data.isCriteriaPristine
   };
 };
 
