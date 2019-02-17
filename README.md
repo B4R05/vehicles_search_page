@@ -31,13 +31,13 @@ This app is a search page prototype allowing a user to search for rental cars ba
 
 # Previews
 
-### Consumer Mode Preview:
+### Consumer Mode Preview
 
 The Consumer mode only lists cars for regular individual use.
 
 ![](consumer.gif)
 
-### PCO Mode Preview:
+### PCO Mode Preview
 
 The PCO mode lists cars for private group use, with a rolling subscription option, Uber Types and City Jurisdiction options not available in Consumer mode.
 
@@ -74,13 +74,13 @@ npm run test
 
 The [Semantic UI React][2] component library has been used for a highly scalable, ready-to-use and consistent styling across the app. Extra styling was added to make the app resemble as close as possible to the original search page.
 
-#### Responsive Layout
+### Responsive Layout
 
 The app is fully responsive across all devices and the breakpoints easily configurable by setting them on the `Grid` component in `App.js`.
 
 ![](responsive.gif)
 
-#### Additional UX implementations:
+### Additional UX implementations
 
 - A loading indicator and `searching for cars` text are displayed while fetching results
 - `Car Model` is disabled unless a `Car Make` is actively selected
