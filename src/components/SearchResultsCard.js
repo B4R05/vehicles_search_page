@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Card, Header } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 import Image from "react-graceful-image";
 import "../styles/SearchResultsCard.css";
 
@@ -53,16 +54,21 @@ const SearchResultsCard = props => {
           <hr />
           Located in {props.info.postcode}
           <small>Available from {props.info.available_start_date}</small>
-          <img src="transmission.svg" />
+          <img src="transmission.svg" alt="transmission logo" />
           {props.info.transmission}
-          <img src="fuel.svg" />
+          <img src="fuel.svg" alt="fuel logo" />
           {props.info.fuel}
-          <img src="jurisdiction.svg" />
+          <img src="jurisdiction.svg" alt="jurisdiction logo" />
           {props.info.city_jurisdiction}
         </Card.Content>
       )}
     </Card>
   );
+};
+
+SearchResultsCard.propTypes = {
+  hireType: PropTypes.string.isRequired,
+  info: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

@@ -1,13 +1,10 @@
-import _ from "lodash";
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Dropdown, Header } from "semantic-ui-react";
 import { fetchData, editCriteria } from "../actions";
-import DropdownInput from "./DropdownInput";
 import ActiveFilterItem from "./ActiveFilterItem";
 import "../styles/SearchSummary.css";
-
-import { defaultCriteria } from "../config/minimumCriteria";
 
 class SearchSummary extends Component {
   state = {
@@ -101,6 +98,15 @@ class SearchSummary extends Component {
     );
   }
 }
+
+SearchSummary.propTypes = {
+  criteria: PropTypes.object,
+  metadata: PropTypes.object,
+  isVehiclesLoading: PropTypes.bool,
+  fetchData: PropTypes.func.isRequired,
+  editCriteria: PropTypes.func.isRequired,
+  isCriteriaPristine: PropTypes.bool
+};
 
 const mapStateToProps = state => {
   return {

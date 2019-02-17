@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Image, Segment, Button } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import { editCriteria, resetCriteria } from "../actions";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
@@ -55,6 +56,10 @@ export class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  resetCriteria: PropTypes.func.isRequired
+};
 
 export default connect(
   null,

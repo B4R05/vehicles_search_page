@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchData, editCriteria } from "../actions";
 import SearchFormRadio from "./SearchFormRadio";
@@ -393,6 +394,14 @@ class SearchForm extends Component {
     );
   }
 }
+
+SearchForm.propTypes = {
+  criteria: PropTypes.object,
+  metadata: PropTypes.object,
+  isVehiclesLoading: PropTypes.bool,
+  fetchData: PropTypes.func.isRequired,
+  editCriteria: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
   return {

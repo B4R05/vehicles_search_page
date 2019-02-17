@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 import { editCriteria } from "../actions";
@@ -60,6 +61,15 @@ class DropdownInput extends Component {
     );
   }
 }
+
+DropdownInput.propTypes = {
+  criteria: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  stateOptions: PropTypes.array.isRequired,
+  editCriteria: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
   return {

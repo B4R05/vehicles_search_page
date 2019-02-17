@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Card } from "semantic-ui-react";
 import SearchResultsCard from "./SearchResultsCard";
@@ -17,6 +18,11 @@ const SearchResults = props => {
       <SearchPagination />
     </section>
   );
+};
+
+SearchResults.propTypes = {
+  cars: PropTypes.array,
+  isVehiclesLoading: PropTypes.bool
 };
 
 const mapStateToProps = state => {

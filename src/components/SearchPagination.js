@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Card, Pagination, Segment } from "semantic-ui-react";
+import { Pagination } from "semantic-ui-react";
 import { editCriteria } from "../actions";
 
 class SearchPagination extends Component {
@@ -43,6 +44,13 @@ class SearchPagination extends Component {
     );
   }
 }
+
+SearchPagination.propTypes = {
+  criteria: PropTypes.object,
+  cars: PropTypes.array,
+  metadata: PropTypes.object,
+  editCriteria: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
   return {

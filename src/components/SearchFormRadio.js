@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Segment, Form, Radio, Header } from "semantic-ui-react";
 import { editCriteria } from "../actions";
@@ -95,6 +96,10 @@ class SearchFormRadio extends Component {
     );
   }
 }
+
+SearchFormRadio.propTypes = {
+  editCriteria: PropTypes.func.isRequired
+};
 
 export default connect(
   null,

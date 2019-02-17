@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editCriteria } from "../actions";
 import InputRange from "react-input-range";
@@ -81,6 +82,14 @@ class Slider extends Component {
     );
   }
 }
+
+Slider.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  minName: PropTypes.string.isRequired,
+  maxName: PropTypes.string.isRequired,
+  editCriteria: PropTypes.func.isRequired
+};
 
 export default connect(
   null,
