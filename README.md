@@ -2,9 +2,9 @@
 
 > Search cars for rent with the Drover API!
 
-![](https://img.shields.io/github/last-commit/GavBaros/search_filter.svg?style=flat)
-![](https://img.shields.io/github/repo-size/GavBaros/search_filter.svg?style=flat)
-![](https://img.shields.io/david/GavBaros/search_filter.svg?style=flat)
+![](https://img.shields.io/github/last-commit/GavBaros/vehicles_search_page.svg?style=flat)
+![](https://img.shields.io/github/repo-size/GavBaros/vehicles_search_page.svg?style=flat)
+![](https://img.shields.io/david/GavBaros/vehicles_search_page.svg?style=flat)
 
 ## Table of Contents
 
